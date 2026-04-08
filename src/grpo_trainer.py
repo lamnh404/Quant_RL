@@ -53,7 +53,17 @@ def train_r3_quant_grpo(model_dir: str, train_data, output_dir: str, sft_lora_di
     else:
         print("Không tìm thấy Adapter SFT, khởi tạo Adapter mới.")
         peft_model = apply_lora_to_quantized_model(model_dir)
-        
+    processor.image_processor.min_pixels = 256 * 28 * 28
+    processor.image_processor.max_pixels = 1024 * 28 * 28
+    vision_tokens = ['<|vision_start|>', '<|image_pad|>', '<|vision_end|>']
+    vision_token_ids = processor.tokenizer.convert_tokens_to_ids(vision_tokens)
+    
+    if peft_model.generation_config.suppress_tokens is None:
+        peft_model.generation_config.suppress_tokens = []
+    peft_model.generation_config.suppress_tokens.extend(vision_token_ids)
+    
+    peft_model.generation_config.bad_words_ids = [[tid] for tid in vision_token_ids]
+
     grpo_dataset = prepare_scienceqa_for_grpo(train_data)
 
     def decode_and_sanitize_data(batch):
