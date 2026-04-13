@@ -8,5 +8,5 @@ qwen-vl-utils
 optimum
 gptqmodel
 peft
-trl >= >= 0.12.0
+trl >=  0.12.0
 bitsandbytes
