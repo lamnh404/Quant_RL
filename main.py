@@ -9,7 +9,7 @@ from model.quantizer import QwenGPTQQuantizer
 from src.grpo_trainer import train_r3_quant_grpo
 from src.sft_trainer import train_sft_baseline
 
-BASE_MODEL_ID = "Qwen/Qwen2-VL-2B-Instruct"
+BASE_MODEL_ID = "Qwen/Qwen2.5-VL-7B-Instruct"
 QUANT_BITS = 3
 def setup_environment():
     print("--- 1. Khởi tạo cấu trúc thư mục ---")
