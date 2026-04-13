@@ -125,7 +125,7 @@ def train_r3_quant_grpo(model_dir: str, train_data, output_dir: str, sft_lora_di
         save_steps=10,               
         save_total_limit=2,
         per_device_train_batch_size=1,
-        gradient_accumulation_steps=8,       
+        gradient_accumulation_steps=16,       
         gradient_checkpointing=True, 
         
         num_generations=4,                    
